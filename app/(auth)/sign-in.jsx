@@ -9,7 +9,6 @@ export default function SignIn() {
   const { control, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = (data) => {
-    // Example logic: navigate to Home screen and pass username
     navigation.navigate('Home', { username: data.email });
   };
 
@@ -84,7 +83,7 @@ export default function SignIn() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f0f8ff', // Soft educational-themed background
+    backgroundColor: '#f0f8ff',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
@@ -93,7 +92,7 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     marginBottom: 30,
-    borderRadius: 60, // Circle effect for the logo
+    borderRadius: 60,
   },
   title: {
     fontSize: 28,
@@ -116,10 +115,10 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
-    elevation: 2, // Adds slight shadow for Android
+    elevation: 2,
   },
   button: {
-    backgroundColor: '#4caf50', // Green for positivity
+    backgroundColor: '#4caf50',
     paddingVertical: 15,
     paddingHorizontal: 50,
     borderRadius: 25,
@@ -153,6 +152,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#007bff',
     fontWeight: 'bold',
-    textDecorationLine: 'underline', // Adds a link effect
+    textDecorationLine: 'underline',
   },
 });
