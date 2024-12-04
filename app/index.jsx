@@ -17,6 +17,10 @@ export default function App() {
       <TouchableOpacity style={styles.button} onPress={() => router.push("/sign-in")}>
         <Text style={styles.buttonText}>Get Started</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={() => router.push("/home")}>
+        <Text style={styles.buttonText}>Get Started</Text>
+      </TouchableOpacity>
     </View>
   );
 }
