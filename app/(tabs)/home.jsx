@@ -1,223 +1,161 @@
-import React from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  ScrollView, 
-  TouchableOpacity, 
+import React, { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
   Image,
-  Dimensions 
+  ActivityIndicator,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { useCourseStore } from '../store/courseStore';
 
-const { width } = Dimensions.get('window');
+export default function HomeScreen() {
+  const { clickCount, incrementCount } = useCourseStore(); // Zustand state and actions
+  const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-const HomeScreen = () => {
-  return (
-    <ScrollView style={styles.container}>
-      {/* Welcome Section */}
-      <View style={styles.welcomeSection}>
-        <View style={styles.greetingContainer}>
-          <Text style={styles.greeting}>Good Morning,</Text>
-          <Text style={styles.username}>John Doe</Text>
-          <Text style={styles.subtitle}>Ready to continue learning?</Text>
-        </View>
-        <View style={styles.streakCard}>
-          <Text style={styles.streakNumber}>🔥 7</Text>
-          <Text style={styles.streakText}>Day Streak</Text>
-        </View>
+  useEffect(() => {
+    fetchBooks();
+  }, []);
+
+  const fetchBooks = async () => {
+    try {
+      const response = await fetch('https://openlibrary.org/subjects/science.json');
+      const data = await response.json();
+      const formattedBooks = data.works.map((work) => ({
+        id: work.key,
+        title: work.title,
+        authors: work.authors ? work.authors.map((author) => author.name).join(', ') : 'Unknown',
+        coverId: work.cover_id,
+      }));
+      setBooks(formattedBooks);
+    } catch (err) {
+      setError(err.message);
+      console.error('Error fetching books:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCardPress = () => {
+    incrementCount(); // Increment the click count
+  };
+
+  const renderBookCard = ({ item }) => (
+    <TouchableOpacity style={styles.card} onPress={handleCardPress}>
+      {item.coverId && (
+        <Image
+          source={{
+            uri: `https://covers.openlibrary.org/b/id/${item.coverId}-M.jpg`,
+          }}
+          style={styles.cardImage}
+        />
+      )}
+      <View style={styles.cardContent}>
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.authors}>Authors: {item.authors}</Text>
       </View>
-
-      {/* Daily Goals */}
-      <View style={styles.goalsSection}>
-        <Text style={styles.sectionTitle}>Today's Goals</Text>
-        <View style={styles.goalCard}>
-          <View style={styles.goalProgress}>
-            <View style={[styles.progressRing, { borderColor: '#4CAF50' }]}>
-              <Text style={styles.progressText}>75%</Text>
-            </View>
-          </View>
-          <View style={styles.goalInfo}>
-            <Text style={styles.goalTitle}>Daily Learning Goal</Text>
-            <Text style={styles.goalSubtitle}>45 mins left to reach 1 hour</Text>
-          </View>
-        </View>
-      </View>
-
-      {/* Learning Paths */}
-      <View style={styles.pathsSection}>
-        <Text style={styles.sectionTitle}>Your Learning Paths</Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {['Frontend', 'Backend', 'Mobile Dev'].map((path, index) => (
-            <TouchableOpacity key={index} style={styles.pathCard}>
-              <View style={[styles.pathIcon, { backgroundColor: ['#FF6B6B', '#4ECDC4', '#45B7D1'][index] }]}>
-                <Ionicons name={['layers', 'server', 'phone-portrait'].includes[index]} size={24} color="#fff" />
-              </View>
-              <Text style={styles.pathName}>{path}</Text>
-              <Text style={styles.pathProgress}>In Progress</Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-      </View>
-
-      {/* Quick Tools */}
-      <View style={styles.toolsSection}>
-        <Text style={styles.sectionTitle}>Quick Tools</Text>
-        <View style={styles.toolsGrid}>
-          {[
-            { name: 'Practice', icon: 'barbell' },
-            { name: 'Flashcards', icon: 'card' },
-            { name: 'Notes', icon: 'document-text' },
-            { name: 'Community', icon: 'people' }
-          ].map((tool, index) => (
-            <TouchableOpacity key={index} style={styles.toolCard}>
-              <Ionicons name={tool.icon} size={24} color="#007AFF" />
-              <Text style={styles.toolName}>{tool.name}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </View>
-    </ScrollView>
+    </TouchableOpacity>
   );
-};
+
+  if (loading) {
+    return (
+      <View style={styles.centerContainer}>
+        <ActivityIndicator size="large" color="#007AFF" />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.centerContainer}>
+        <Text style={styles.errorText}>Error: {error}</Text>
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.container}>
+      <View>
+        <Text style={styles.title}>Displaying Books</Text>
+      </View>
+      <FlatList
+        data={books}
+        renderItem={renderBookCard}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.listContainer}
+      />
+      <TouchableOpacity
+        style={styles.floatingButton}
+        onPress={() => {
+          incrementCount();
+          console.log('Total clicks:', clickCount);
+        }}
+      >
+        <Text style={styles.buttonText}>Clicks: {clickCount}</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#f5f5f5',
   },
-  welcomeSection: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 20,
+  centerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  listContainer: {
+    padding: 10,
+  },
+  card: {
     backgroundColor: '#fff',
+    padding: 15,
+    marginBottom: 10,
+    borderRadius: 8,
+    elevation: 2,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-  greetingContainer: {
+  cardImage: {
+    width: 60,
+    height: 90,
+    marginRight: 15,
+    borderRadius: 4,
+  },
+  cardContent: {
     flex: 1,
   },
-  greeting: {
-    fontSize: 16,
-    color: '#666',
-  },
-  username: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#2b2d42',
-  },
-  subtitle: {
-    color: '#666',
-    marginTop: 5,
-  },
-  streakCard: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FFF3E0',
-    padding: 15,
-    borderRadius: 12,
-  },
-  streakNumber: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  streakText: {
-    fontSize: 12,
-    color: '#666',
-  },
-  goalsSection: {
-    padding: 20,
-  },
-  goalCard: {
-    flexDirection: 'row',
-    backgroundColor: '#fff',
-    padding: 15,
-    borderRadius: 12,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  goalProgress: {
-    marginRight: 15,
-  },
-  progressRing: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    borderWidth: 6,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  progressText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  pathsSection: {
-    padding: 20,
-  },
-  pathCard: {
-    backgroundColor: '#fff',
-    padding: 15,
-    borderRadius: 12,
-    marginRight: 15,
-    width: width * 0.4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-    margin: 5,
-  },
-  pathIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 10,
-  },
-  pathName: {
+  title: {
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 5,
   },
-  pathProgress: {
-    fontSize: 12,
-    color: '#666',
-  },
-  toolsSection: {
-    padding: 20,
-  },
-  toolsGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-  toolCard: {
-    backgroundColor: '#fff',
-    padding: 15,
-    borderRadius: 12,
-    width: '48%',
-    marginBottom: 15,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  toolName: {
-    marginTop: 8,
+  authors: {
     fontSize: 14,
-    color: '#2b2d42',
+    color: '#555',
   },
-  sectionTitle: {
-    fontSize: 20,
+  floatingButton: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    backgroundColor: '#007AFF',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 25,
+    elevation: 5,
+  },
+  buttonText: {
+    color: '#fff',
     fontWeight: 'bold',
-    marginBottom: 15,
-    color: '#2b2d42',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 16,
   },
 });
-
-export default HomeScreen;
