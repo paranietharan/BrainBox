@@ -1,15 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Image } from 'react-native';
-import { useForm, Controller } from 'react-hook-form';
-import { useNavigation } from '@react-navigation/native';
-import { Redirect, router } from 'expo-router';
+import { router } from 'expo-router';
+
+// Hardcoded credentials
+const VALID_CREDENTIALS = [
+  { email: 'paranie@gmail.com', password: '123' },
+  { email: 'admin@eduapp.com', password: 'admin123' }
+];
 
 export default function SignIn() {
-  const navigation = useNavigation();
-  const { control, handleSubmit, formState: { errors } } = useForm();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const onSubmit = (data) => {
-    navigation.navigate('Home', { username: data.email });
+  const handleSignIn = () => {
+    // Trim inputs to remove any whitespace
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password.trim();
+
+    // Debug logs
+    console.log('Attempting login with:', trimmedEmail, "Password : ", trimmedPassword);
+    console.log('Valid credentials:', VALID_CREDENTIALS);
+
+    const isValid = VALID_CREDENTIALS.some(
+      cred => cred.email === email && cred.password === password
+    );
+
+    console.log('Is valid?', isValid);
+
+    if (isValid) {
+      router.push('/(tabs)/home');
+    } else {
+      setError('Invalid email or password');
+      Alert.alert('Error', 'Invalid email or password');
+    }
   };
 
   return (
@@ -18,64 +42,44 @@ export default function SignIn() {
         source={require('../../assets/images/logo.png')}
         style={styles.logo}
       />
-      <Text style={styles.title}>Sign In to Education App</Text>
+      <Text style={styles.title}>Welcome Back!</Text>
+      <Text style={styles.subtitle}>Sign in to continue learning</Text>
 
-      {/* Email Field */}
-      <Controller
-        control={control}
-        name="email"
-        rules={{
-          required: 'Email is required',
-          pattern: {
-            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-            message: 'Enter a valid email address',
-          },
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        value={email}
+        onChangeText={(text) => {
+          setEmail(text);
+          setError('');
         }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
+        keyboardType="email-address"
+        autoCapitalize="none"
       />
-      {errors.email && <Text style={styles.errorText}>{errors.email.message}</Text>}
 
-      {/* Password Field */}
-      <Controller
-        control={control}
-        name="password"
-        rules={{
-          required: 'Password is required',
-          minLength: {
-            value: 6,
-            message: 'Password must be at least 6 characters',
-          },
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        value={password}
+        onChangeText={(text) => {
+          setPassword(text);
+          setError('');
         }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            style={styles.input}
-            placeholder="Password"
-            secureTextEntry
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
+        secureTextEntry
       />
-      {errors.password && <Text style={styles.errorText}>{errors.password.message}</Text>}
 
-      {/* Sign In Button */}
-      <TouchableOpacity style={styles.button} onPress={handleSubmit(onSubmit)}>
+      {error ? <Text style={styles.errorText}>{error}</Text> : null}
+
+      <TouchableOpacity style={styles.button} onPress={handleSignIn}>
         <Text style={styles.buttonText}>Sign In</Text>
       </TouchableOpacity>
 
-      <Text style={styles.loginText}>Don't you have an account?</Text>
-      <TouchableOpacity style={styles.loginLink} onPress={() => router.push("/sign-up")}>
-         <Text style={styles.loginLinkText}>Log in</Text>
-      </TouchableOpacity>
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>Don't have an account? </Text>
+        <TouchableOpacity onPress={() => router.push('/sign-up')}>
+          <Text style={styles.linkText}>Sign Up</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -83,75 +87,65 @@ export default function SignIn() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f0f8ff',
-    alignItems: 'center',
-    justifyContent: 'center',
     padding: 20,
+    justifyContent: 'center',
+    backgroundColor: '#f8f9fa',
   },
   logo: {
-    width: 120,
-    height: 120,
+    width: 100,
+    height: 100,
+    alignSelf: 'center',
     marginBottom: 30,
-    borderRadius: 60,
   },
   title: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 20,
     textAlign: 'center',
+    marginBottom: 10,
+    color: '#2b2d42',
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 30,
   },
   input: {
-    width: '100%',
-    height: 50,
     backgroundColor: '#fff',
-    borderRadius: 12,
-    paddingHorizontal: 15,
-    fontSize: 16,
+    padding: 15,
+    borderRadius: 10,
     marginBottom: 15,
     borderWidth: 1,
     borderColor: '#ddd',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 2,
+    fontSize: 16,
   },
   button: {
-    backgroundColor: '#4caf50',
-    paddingVertical: 15,
-    paddingHorizontal: 50,
-    borderRadius: 25,
-    marginTop: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    elevation: 3,
+    backgroundColor: '#007AFF',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginTop: 10,
   },
   buttonText: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   errorText: {
-    color: '#e53935',
-    fontSize: 14,
-    alignSelf: 'flex-start',
+    color: '#dc3545',
     marginBottom: 10,
+    textAlign: 'center',
   },
-  loginText: {
+  footer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
     marginTop: 20,
-    fontSize: 16,
-    color: '#555',
   },
-  loginLink: {
-    marginTop: 5,
+  footerText: {
+    color: '#666',
   },
-  loginLinkText: {
-    fontSize: 16,
-    color: '#007bff',
+  linkText: {
+    color: '#007AFF',
     fontWeight: 'bold',
-    textDecorationLine: 'underline',
   },
 });

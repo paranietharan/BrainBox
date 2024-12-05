@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigation } from '@react-navigation/native';
+import { router } from 'expo-router';
 
 export default function SignUp() {
   const navigation = useNavigation();
@@ -96,7 +97,7 @@ export default function SignUp() {
       </TouchableOpacity>
 
       <Text style={styles.loginText}>Already have an account?</Text>
-      <TouchableOpacity style={styles.loginLink} onPress={() => navigation.navigate('/sign-in')}>
+      <TouchableOpacity style={styles.loginLink} onPress={() => router.push('/sign-in')}>
         <Text style={styles.loginLinkText}>Sign In</Text>
       </TouchableOpacity>
     </View>
