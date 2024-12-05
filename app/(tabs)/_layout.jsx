@@ -35,7 +35,13 @@ const TabLayout = () => {
           tabBarActiveTintColor: "#FFA001",
           tabBarInactiveTintColor: "#CDCDE0",
           tabBarShowLabel: false,
-          tabBarStyle: styles.tabBarStyle,
+          headerShown: false,
+          tabBarStyle: {
+            backgroundColor: "#161622",
+            borderTopWidth: 0,
+            borderTopColor: "#232533",
+            height: 70,
+          },
         }}
       >
         {/* Home Tab */}
@@ -119,7 +125,8 @@ const styles = {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: 5,
+    paddingTop: 15,
+    paddingBottom: 15,
     gap: 5,
     padding: 5,
   },

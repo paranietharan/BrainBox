@@ -20,9 +20,9 @@ export default function App() {
 
 
       {/* for dev purposes. to go to home page */}
-      <TouchableOpacity style={styles.button} onPress={() => router.push("/home")}>
+      {/* <TouchableOpacity style={styles.button} onPress={() => router.push("/home")}>
         <Text style={styles.buttonText}>Dev</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 }
