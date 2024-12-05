@@ -22,37 +22,45 @@ const Explore = () => {
 
   const trendingCourses = [
     {
-      id: 1,
-      title: 'React Native Masterclass',
-      instructor: 'John Doe',
-      rating: 4.8,
-      students: '2.5k',
-      image: 'https://via.placeholder.com/150',
-    },
-    {
       id: 2,
-      title: 'React Native Masterclass',
-      instructor: 'John Doe',
-      rating: 4.8,
-      students: '2.5k',
-      image: 'https://via.placeholder.com/150',
+      title: 'Machine Learning Fundamentals',
+      instructor: 'Sarah Wilson',
+      rating: 4.9,
+      students: '3.2k',
+      image: 'https://www.tensorflow.org/images/tf_logo_social.png',
     },
     {
       id: 3,
-      title: 'React Native Masterclass',
-      instructor: 'John Doe',
-      rating: 4.8,
-      students: '2.5k',
-      image: 'https://via.placeholder.com/150',
+      title: 'Flutter App Development',
+      instructor: 'Mike Johnson',
+      rating: 4.7,
+      students: '1.8k',
+      image: 'https://storage.googleapis.com/cms-storage-bucket/70760bf1e88b184bb1bc.png',
     },
     {
       id: 4,
-      title: 'React Native Masterclass',
-      instructor: 'John Doe',
-      rating: 4.8,
-      students: '2.5k',
-      image: 'https://via.placeholder.com/150',
+      title: 'Full Stack JavaScript',
+      instructor: 'Emily Chen',
+      rating: 4.6,
+      students: '4.1k',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/1200px-Node.js_logo.svg.png',
     },
+    {
+      id: 5,
+      title: 'Python for Data Science',
+      instructor: 'David Brown',
+      rating: 4.9,
+      students: '5.5k',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png',
+    },
+    {
+      id: 6,
+      title: 'AWS Cloud Architecture',
+      instructor: 'Lisa Anderson',
+      rating: 4.7,
+      students: '2.9k',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Amazon_Web_Services_Logo.svg/1200px-Amazon_Web_Services_Logo.svg.png',
+    }
   ];
 
   return (
@@ -199,7 +207,11 @@ const styles = StyleSheet.create({
   },
   courseImage: {
     width: '100%',
-    height: 150,
+    height: 200,
+    resizeMode: 'contain',
+    backgroundColor: '#f5f5f5',
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
   },
   courseInfo: {
     padding: 15,

@@ -17,8 +17,8 @@ const TabIcon = ({ icon, color, name, focused }) => {
           styles.tabLabel,
           { color: color || "#FFFFFF", fontWeight: focused ? "600" : "400" }, // Light text
         ]}
-        numberOfLines={1}  // Ensure text stays on one line
-        ellipsizeMode="tail"  // Adds ellipsis for long text
+        numberOfLines={1}
+        ellipsizeMode="tail"
       >
         {name}
       </Text>
@@ -32,10 +32,10 @@ const TabLayout = () => {
     <>
       <Tabs
         screenOptions={{
-          tabBarActiveTintColor: "#FFA001",  // Active tab color
-          tabBarInactiveTintColor: "#CDCDE0", // Inactive tab color
-          tabBarShowLabel: false,  // Hide labels under icons
-          tabBarStyle: styles.tabBarStyle,  // Tab bar styling
+          tabBarActiveTintColor: "#FFA001",
+          tabBarInactiveTintColor: "#CDCDE0",
+          tabBarShowLabel: false,
+          tabBarStyle: styles.tabBarStyle,
         }}
       >
         {/* Home Tab */}
@@ -119,7 +119,7 @@ const styles = {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: 15,
+    paddingTop: 5,
     gap: 5,
     padding: 5,
   },

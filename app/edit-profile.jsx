@@ -4,7 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { router } from 'expo-router';
 
 const EditProfileScreen = () => {
-  const [image, setImage] = useState('https://via.placeholder.com/150');
+  const [image, setImage] = useState('https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y');
   const [name, setName] = useState('John Doe');
   const [email, setEmail] = useState('john.doe@example.com');
   const [bio, setBio] = useState('Software Engineering Student');
@@ -23,7 +23,6 @@ const EditProfileScreen = () => {
   };
 
   const handleSave = () => {
-    // Add your save logic here
     Alert.alert('Success', 'Profile updated successfully');
     router.back();
   };

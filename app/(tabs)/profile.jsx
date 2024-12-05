@@ -2,13 +2,14 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, ProgressBarAndroid } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
+import profilePic from '../../assets/images/profile.png';
 
 const ProfileScreen = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Image
-          source={{ uri: 'https://via.placeholder.com/150' }}
+          source={profilePic}
           style={styles.profileImage}
         />
         <Text style={styles.name}>John Doe</Text>
@@ -82,6 +83,8 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderWidth: 3,
     borderColor: '#3a86ff',
+    resizeMode: 'contain',
+    backgroundColor: '#eee',
   },
   name: {
     fontSize: 24,

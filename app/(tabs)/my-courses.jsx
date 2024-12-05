@@ -16,24 +16,14 @@ const MyCourses = () => {
   const enrolledCourses = [
     {
       id: 1,
-      title: 'React Native Development',
-      instructor: 'John Doe',
-      progress: 75,
-      totalLessons: 24,
-      completedLessons: 18,
-      image: 'https://via.placeholder.com/150',
-      lastAccessed: '2 days ago'
+      title: 'Flutter App Development',
+      instructor: 'Mike Johnson',
+      progress: 60,
+      totalLessons: 28,
+      completedLessons: 17,
+      image: 'https://storage.googleapis.com/cms-storage-bucket/70760bf1e88b184bb1bc.png',
+      lastAccessed: '1 day ago'
     },
-    {
-      id: 2,
-      title: 'UI/UX Design Fundamentals',
-      instructor: 'Jane Smith',
-      progress: 45,
-      totalLessons: 32,
-      completedLessons: 14,
-      image: 'https://via.placeholder.com/150',
-      lastAccessed: '5 days ago'
-    }
   ];
 
   return (
@@ -158,7 +148,7 @@ const styles = StyleSheet.create({
   },
   courseImage: {
     width: '100%',
-    height: 150,
+    height: 300,
   },
   courseInfo: {
     padding: 15,
