@@ -78,9 +78,6 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={styles.title}>Displaying Books</Text>
-      </View>
       <FlatList
         data={books}
         renderItem={renderBookCard}
@@ -90,7 +87,6 @@ export default function HomeScreen() {
       <TouchableOpacity
         style={styles.floatingButton}
         onPress={() => {
-          incrementCount();
           console.log('Total clicks:', clickCount);
         }}
       >

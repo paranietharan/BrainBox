@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 export const useCourseStore = create((set, get) => ({
-  clickCount: 1,
+  clickCount: 0,
   incrementCount: () => {
     set((state) => {
       const newCount = state.clickCount + 1;
