@@ -1,233 +1,68 @@
-# 🧠 BrainBox - Learning App
+# BrainBox — Learning App Prototype
 
-BrainBox is a modern, intuitive React Native learning application built with Expo. It provides a comprehensive platform for users to discover, enroll in, and manage their learning courses with a beautiful and user-friendly interface.
+A React Native and Expo application developed for a **Mobile Application Development module assignment**. BrainBox explores course browsing, navigation, form validation, and profile screens through a learning-app interface.
 
-## 📱 Features
+**Developer:** Paranietharan P. · **Index number:** 214145R
 
-- **User Authentication**: Secure sign-in and sign-up functionality
-- **Course Management**: Browse, explore, and manage your learning courses
-- **Profile Management**: Edit and customize your user profile
-- **Responsive Design**: Optimized for both iOS and Android platforms
-- **Modern UI/UX**: Clean, intuitive interface with smooth navigation
+## Implemented scope
 
-## 🛠️ Tech Stack
+- Welcome, sign-in, and sign-up screens.
+- Tab navigation for home, course exploration, my courses, and profile views.
+- Profile-editing UI and image-picker integration.
+- Form validation using React Hook Form and a small Zustand store.
 
-- **Framework**: React Native with Expo
-- **Navigation**: Expo Router for file-based routing
-- **State Management**: Zustand for lightweight state management
-- **Form Handling**: React Hook Form for efficient form management
-- **Platform**: Cross-platform (iOS, Android, Web)
+Authentication is a UI demonstration: [sign-in](app/%28auth%29/sign-in.jsx) checks hardcoded demo credentials, and [sign-up](app/%28auth%29/sign-up.jsx) logs form data and navigates without creating a persistent account. The source logs entered credentials, so use only dummy information when trying the prototype. Course and profile screens should not be interpreted as a deployed learning-management backend.
 
-## 📦 Dependencies
+## Technology
 
-- Expo SDK 52
-- React Native 0.76.3
-- React 18.3.1
-- Expo Router 4.0.11
-- Zustand 5.0.2
-- React Hook Form 7.53.2
+Versions declared in [package.json](package.json): Expo SDK 52, React Native 0.76.3, React 18.3.1, Expo Router 4, Zustand, React Hook Form, and Expo Image Picker.
 
-## 🚀 Getting Started
+## Run locally
 
-### Prerequisites
+Use Node.js/npm and an emulator or device setup compatible with the project's Expo SDK 52 dependencies. The repository does not pin a Node version.
 
-- Node.js (v16 or higher)
-- npm or yarn
-- Expo CLI
-- iOS Simulator (for iOS development)
-- Android Studio (for Android development)
-
-### Installation
-
-1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/paranietharan/BrainBox.git
 cd BrainBox
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Start the development server:
-```bash
+npm ci
 npm start
 ```
 
-4. Run on specific platforms:
+Available scripts:
+
 ```bash
-# iOS
-npm run ios
-
-# Android
 npm run android
-
-# Web
+npm run ios
 npm run web
 ```
 
-## 📱 App Screenshots
+These scripts invoke Expo's platform launchers. Platform tooling and any additional web dependencies must be available in your environment; a script's presence does not establish that every platform has been tested. The repository has no automated test script.
 
-<div align="center">
+For the demo sign-in, the source includes `admin@eduapp.com` / `admin123`. These are hardcoded prototype values, not an account on an authentication server.
 
-### 🚀 **Welcome Experience**
-<table>
-<tr>
-<td align="center">
-<img src="./screenshots/home-screen.jpg" width="250" alt="Welcome Screen"/>
-<br><b>Welcome Screen</b><br>
-<em>Beautiful landing with BrainBox logo</em>
-</td>
-</tr>
-</table>
+## Screenshots and demonstration
 
-### 🔐 **Authentication Flow**
-<table>
-<tr>
-<td align="center">
-<img src="./screenshots/log-in-screen.jpg" width="250" alt="Sign In Screen"/>
-<br><b>Sign In</b><br>
-<em>Secure & intuitive login</em>
-</td>
-<td align="center">
-<img src="./screenshots/sign-up-screen.jpg" width="250" alt="Sign Up Screen"/>
-<br><b>Sign Up</b><br>
-<em>Quick registration process</em>
-</td>
-</tr>
-</table>
+| Screen | Preview |
+| --- | --- |
+| Welcome | [Home screen](screenshots/home-screen.jpg) |
+| Sign in | [Login screen](screenshots/log-in-screen.jpg) |
+| Sign up | [Registration screen](screenshots/sign-up-screen.jpg) |
+| Explore | [Explore screen](screenshots/explore-screen.jpg) |
+| My courses | [Course screen](screenshots/my-courses-screen.jpg) |
+| Profile | [Profile screen](screenshots/profile-screen.jpg) |
+| Edit profile | [Edit profile](screenshots/edit-profile.jpg) |
 
-### 🎯 **Core Features**
-<table>
-<tr>
-<td align="center">
-<img src="./screenshots/explore-screen.jpg" width="250" alt="Explore Screen"/>
-<br><b>Explore</b><br>
-<em>Discover new courses</em>
-</td>
-<td align="center">
-<img src="./screenshots/my-courses-screen.jpg" width="250" alt="My Courses Screen"/>
-<br><b>My Courses</b><br>
-<em>Track your progress</em>
-</td>
-</tr>
-</table>
+[Watch or download the recorded app demonstration](demo-videos/214145R_ReactNative_app.mp4).
 
-### 👤 **Profile Management**
-<table>
-<tr>
-<td align="center">
-<img src="./screenshots/profile-screen.jpg" width="250" alt="Profile Screen"/>
-<br><b>Profile</b><br>
-<em>Personal dashboard</em>
-</td>
-<td align="center">
-<img src="./screenshots/edit-profile.jpg" width="250" alt="Edit Profile Screen"/>
-<br><b>Edit Profile</b><br>
-<em>Customize your info</em>
-</td>
-</tr>
-</table>
+## Source guide
 
-</div>
+- [app](app): Expo Router screens, layouts, and state store.
+- [constants](constants): Shared image/icon references.
+- [assets](assets): Bundled application assets.
+- [app.json](app.json): Expo application configuration.
 
----
+This repository preserves the assignment prototype and its demonstration materials. A persistent backend, real authentication, and automated user-flow tests would be separate follow-up work.
 
-### 📱 **Screenshot Gallery**
-> *Hover over images to see full details. All screenshots showcase the modern dark theme with orange accents.*
+## License
 
-<details>
-<summary><b>🖼️ View All Screenshots in Detail</b></summary>
-
-| Screen | Description | Features |
-|--------|-------------|----------|
-| ![Welcome](./screenshots/home-screen.jpg) | **Welcome Screen** | • Brand logo<br>• Call-to-action button<br>• Clean design |
-| ![Sign In](./screenshots/log-in-screen.jpg) | **Authentication** | • Secure login<br>• Form validation<br>• User-friendly UI |
-| ![Sign Up](./screenshots/sign-up-screen.jpg) | **Registration** | • Quick signup<br>• Input validation<br>• Modern form design |
-| ![Explore](./screenshots/explore-screen.jpg) | **Course Discovery** | • Course browsing<br>• Search functionality<br>• Category filters |
-| ![My Courses](./screenshots/my-courses-screen.jpg) | **Learning Hub** | • Progress tracking<br>• Course management<br>• Learning analytics |
-| ![Profile](./screenshots/profile-screen.jpg) | **User Profile** | • Personal information<br>• Settings access<br>• Achievement display |
-| ![Edit Profile](./screenshots/edit-profile.jpg) | **Profile Editor** | • Information editing<br>• Avatar upload<br>• Preferences setup |
-
-</details>
-
-## 🎥 Demo Video
-
-Watch the complete app demonstration:
-
-https://github.com/user-attachments/assets/214145R_ReactNative_app.mp4
-
-*This video showcases the full user journey from authentication to course management*
-
-### Alternative Video Viewing Options
-
-If the video above doesn't play directly, you can:
-
-1. **Download and view locally**: Right-click the video link above and select "Save link as..." to download the MP4 file
-2. **View in GitHub**: The video should be playable directly in GitHub's interface
-3. **Stream online**: Click the video link to open it in a new tab
-
-**Video File**: `demo-videos/214145R_ReactNative_app.mp4`
-
-## 🏗️ Project Structure
-
-```
-BrainBox/
-├── app/                    # Main application code
-│   ├── (auth)/            # Authentication screens
-│   │   ├── sign-in.jsx    # Sign in screen
-│   │   └── sign-up.jsx    # Sign up screen
-│   ├── (tabs)/            # Tab-based navigation screens
-│   │   ├── home.jsx       # Home dashboard
-│   │   ├── explore.jsx    # Course exploration
-│   │   ├── my-courses.jsx # User's courses
-│   │   └── profile.jsx    # User profile
-│   ├── store/             # State management
-│   │   └── courseStore.js # Course-related state
-│   └── _layout.jsx        # Root layout
-├── assets/                # Static assets
-│   ├── images/           # App images and logos
-│   └── icons/            # Tab and UI icons
-├── constants/            # App constants and configurations
-└── screenshots/          # App screenshots for documentation
-```
-
-## 🎨 Design Features
-
-- **Dark Theme**: Modern dark interface with orange accent colors
-- **Tab Navigation**: Intuitive bottom tab navigation
-- **Responsive Layout**: Adapts to different screen sizes
-- **Smooth Animations**: Enhanced user experience with smooth transitions
-- **Custom Icons**: Unique iconography for better visual hierarchy
-
-## 🔧 Configuration
-
-The app is configured through `app.json` with:
-- App name: "BrainBox"
-- Version: 1.0.0
-- Orientation: Portrait
-- Custom splash screen and icons
-- Cross-platform support (iOS, Android, Web)
-
-## 📱 Supported Platforms
-
-- ✅ iOS (iPhone & iPad)
-- ✅ Android (Phone & Tablet)
-- ✅ Web (Progressive Web App)
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 👨‍💻 Developer
-- Name: Paranietharan P.
-- Index No: 214145R
+The previous README described this project as MIT licensed, but no `LICENSE` file is currently included. Confirm the intended license with the maintainer before reuse.
